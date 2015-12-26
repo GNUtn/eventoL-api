@@ -1,0 +1,12 @@
+Django==1.9
+Markdown==2.6.5
+argparse==1.2.1
+diff-match-patch==20121119
+django-ckeditor==5.0.2
+django-crispy-forms==1.5.2
+django-filter==0.11.0
+django-import-export==0.4.2
+djangorestframework==3.3.2
+psycopg2==2.6.1
+tablib==0.10.0
+wsgiref==0.1.2
