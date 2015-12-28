@@ -147,3 +147,6 @@ CKEDITOR_CONFIGS = {
 }
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+if 'TRAVIS' in os.environ:
+    DATABASES['default']['PORT'] = 5000
