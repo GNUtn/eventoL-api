@@ -1,0 +1,12 @@
+sudo: required
+language: python
+python:
+  - "2.7"
+env:
+  - DJANGO=1.9 DB=postgres
+services:
+  - docker
+before_install:
+  - docker run --name eventol-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=eventol -e POSTGRES_DB=eventol -p 5432:5432 -d postgres
+install: "pip install -r requirements.txt"
+script: cd eventoL; python manage.py test
