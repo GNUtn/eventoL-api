@@ -1,0 +1,49 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "EventoL-api\n\n\nEventoL is a event management software initially developed to manage [FLISoL][1] conference.\nIt is in developement state.\n\n\nStatus", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#eventol-api", 
+            "text": "EventoL is a event management software initially developed to manage [FLISoL][1] conference.\nIt is in developement state.", 
+            "title": "EventoL-api"
+        }, 
+        {
+            "location": "/#status", 
+            "text": "", 
+            "title": "Status"
+        }, 
+        {
+            "location": "/installation/", 
+            "text": "DB\n\n\nWe're using postgres. For development there are 2 options:\n\n\nUse a docker container for DB\n\n\nRun the container:\n\n\ndocker run --name eventol-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=eventol -e POSTGRES_DB=eventol -p 5432:5432 -d postgres\n\n\n\n\nAnd the database will be magically available on localhost:5432!\n\n\nDependencies needed on dev machine (tested for Debian jessie and sid):\n\n\n$ sudo apt-get install python build-essential python-setuptools python-dev python-pip\n$ sudo apt-get install binutils libproj-dev gdal-bin libgeoip1 python-gdal\n$ sudo apt-get install libjpeg-dev libpng3 libpng12-dev libfreetype6-dev zlib1g-dev\n$ sudo apt-get install jpegoptim optipng\n$ sudo apt-get install postgresql-server-dev-9.4\n\n\n\n\nInstallation on Debian like systems (jessie+):\n\n\nInstall postgre, python and some dependencies\n\n\n$ sudo apt-get install python build-essential python-setuptools python-dev python-pip\n$ sudo apt-get install postgresql postgresql-client-9.4 postgresql-server-dev-9.4 \n$ sudo apt-get install binutils libproj-dev gdal-bin libgeoip1 python-gdal\n$ sudo apt-get install postgresql-9.4-postgis-2.2\n$ sudo apt-get install libjpeg-dev libpng3 libpng12-dev libfreetype6-dev zlib1g-dev\n$ sudo apt-get install jpegoptim optipng\n\n\n\n\nConfigure postgre\n\n\n$ sudo passwd postgres\n$ sudo su - postgres\n\n$ pg_dropcluster --stop 9.4 main\n$ pg_createcluster --start -e UTF-8 9.4 main\n\n$ psql postgres\n\npostgres=# ALTER ROLE postgres PASSWORD '\npassword\n';\n(ctrl-d)\n$ createuser --createdb eventol\npostgres=# ALTER ROLE eventol PASSWORD '\npassword\n';\n\n$ psql\n\npostgres# CREATE USER eventol PASSWORD 'my_passwd';\npostgres# CREATE DATABASE eventol OWNER eventol ENCODING 'utf8';\n\n\n\n\nIf you want some administration tool for the database\n\n\n$ sudo apt-get install pgadmin3\n\n\n\n\nPython/Django project dependencies\n\n\nInstall python requirements\n\n\n$ pip install -U -r requirements.txt\n\n\n\n\nDjango stuff\n\n\nFirst of all, change in settings.py URLS, PATHS, DATABASE and EMAIL related settings with your specific configuration.\n\n\nThen, model related stuff:\n\n\n$ python manage.py migrate\n$ python manage.py makemigrations api device event user activity\n$ python manage.py migrate\n$ python manage.py createsuperuser\n$ python manage.py collectstatic\n\n\n\n\nIf you want to populate the db with some initial example data\n\n\n$ python manage.py loaddata manager/initial_data.json\n\n\n\n\nUpdate tranlations\n\n\n$ django-admin makemessages --locale=es\n$ django-admin compilemessages", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/installation/#db", 
+            "text": "We're using postgres. For development there are 2 options:", 
+            "title": "DB"
+        }, 
+        {
+            "location": "/installation/#use-a-docker-container-for-db", 
+            "text": "Run the container:  docker run --name eventol-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=eventol -e POSTGRES_DB=eventol -p 5432:5432 -d postgres  And the database will be magically available on localhost:5432!  Dependencies needed on dev machine (tested for Debian jessie and sid):  $ sudo apt-get install python build-essential python-setuptools python-dev python-pip\n$ sudo apt-get install binutils libproj-dev gdal-bin libgeoip1 python-gdal\n$ sudo apt-get install libjpeg-dev libpng3 libpng12-dev libfreetype6-dev zlib1g-dev\n$ sudo apt-get install jpegoptim optipng\n$ sudo apt-get install postgresql-server-dev-9.4", 
+            "title": "Use a docker container for DB"
+        }, 
+        {
+            "location": "/installation/#installation-on-debian-like-systems-jessie", 
+            "text": "Install postgre, python and some dependencies  $ sudo apt-get install python build-essential python-setuptools python-dev python-pip\n$ sudo apt-get install postgresql postgresql-client-9.4 postgresql-server-dev-9.4 \n$ sudo apt-get install binutils libproj-dev gdal-bin libgeoip1 python-gdal\n$ sudo apt-get install postgresql-9.4-postgis-2.2\n$ sudo apt-get install libjpeg-dev libpng3 libpng12-dev libfreetype6-dev zlib1g-dev\n$ sudo apt-get install jpegoptim optipng  Configure postgre  $ sudo passwd postgres\n$ sudo su - postgres\n\n$ pg_dropcluster --stop 9.4 main\n$ pg_createcluster --start -e UTF-8 9.4 main\n\n$ psql postgres\n\npostgres=# ALTER ROLE postgres PASSWORD ' password ';\n(ctrl-d)\n$ createuser --createdb eventol\npostgres=# ALTER ROLE eventol PASSWORD ' password ';\n\n$ psql\n\npostgres# CREATE USER eventol PASSWORD 'my_passwd';\npostgres# CREATE DATABASE eventol OWNER eventol ENCODING 'utf8';", 
+            "title": "Installation on Debian like systems (jessie+):"
+        }, 
+        {
+            "location": "/installation/#if-you-want-some-administration-tool-for-the-database", 
+            "text": "$ sudo apt-get install pgadmin3", 
+            "title": "If you want some administration tool for the database"
+        }, 
+        {
+            "location": "/installation/#pythondjango-project-dependencies", 
+            "text": "Install python requirements  $ pip install -U -r requirements.txt  Django stuff  First of all, change in settings.py URLS, PATHS, DATABASE and EMAIL related settings with your specific configuration.  Then, model related stuff:  $ python manage.py migrate\n$ python manage.py makemigrations api device event user activity\n$ python manage.py migrate\n$ python manage.py createsuperuser\n$ python manage.py collectstatic  If you want to populate the db with some initial example data  $ python manage.py loaddata manager/initial_data.json  Update tranlations  $ django-admin makemessages --locale=es\n$ django-admin compilemessages", 
+            "title": "Python/Django project dependencies"
+        }
+    ]
+}
