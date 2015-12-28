@@ -1,13 +1,26 @@
-# eventoL-api
--------------
+EventoL-api
+===========
 
-## Der
+EventoL is a event management software initially developed to manage [FLISoL][1] conference.
+It is in developement state.
+
+Status
+-------
+[![Requirements Status](https://requires.io/github/GNUtn/eventoL-api/requirements.svg?branch=master)](https://requires.io/github/GNUtn/eventoL-api/requirements.svg?bra$
+[![Stories in Ready](https://badge.waffle.io/GNUtn/eventoL-api.svg?label=ready&title=Ready)](http://waffle.io/GNUtn/eventoL-api)
+
+DER
+---
 ![Der](http://www.gliffy.com/go/publish/image/9317073/M.png)
 
-## Notes:
-docker run --name eventol-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=eventol -e POSTGRES_DB=eventol -p 5432:5432 -d postgres
-python manage.py makemigrations app
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py collectstatic
-python manage.py test app
+Documentation:
+--------------
+See [Documentation](http://gnutn.github.io/eventoL-api/)
+
+Installation
+--------------
+See [Installation Instructions](http://gnutn.github.io/eventoL-api/installation/)
+
+
+  [1]: http://flisol.info/
+
