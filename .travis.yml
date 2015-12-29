@@ -6,8 +6,15 @@ env:
   - DJANGO=1.9 DB=postgres
 services:
   - docker
+cache: pip
 before_install:
-  - netstat -putona
-  - docker run --name eventol-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=eventol -e POSTGRES_DB=eventol -p 5432:5432 -d postgres
-install: "pip install -r requirements.txt"
-script: cd eventoL; python manage.py test
+  - docker run --name eventol-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=eventol -e POSTGRES_DB=eventol -p 5000:5432 -d postgres
+install:
+  - pip install -U pip wheel
+  - pip install coverage coveralls
+  - pip install -r requirements.txt
+script:
+  - cd eventoL; coverage run --source='.' manage.py test
+after_success:
+  - coverage report
+  - coveralls
