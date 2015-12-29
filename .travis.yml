@@ -13,4 +13,5 @@ install:
   - pip install -r requirements.txt
 cache:
   - pip
-script: cd eventoL; python manage.py test
+script:
+  - cd eventoL; python manage.py test
