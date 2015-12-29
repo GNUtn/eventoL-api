@@ -9,6 +9,9 @@ class ViewSetBuilder():
         self.cls_serializer = cls_serializer
         self.fields = cls.for_filter() if "for_filter" in dir(cls) else cls._meta.get_all_field_names()
 
+    def set_fields(self, fields):
+        self.fields = fields
+
     def build(self):
         if not self.cls_serializer:
             class Serializer(serializers.HyperlinkedModelSerializer):
