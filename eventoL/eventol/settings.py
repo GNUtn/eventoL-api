@@ -93,6 +93,10 @@ DATABASES = {
     }
 }
 
+# Travis Configuration
+if 'TRAVIS' in os.environ:
+    DATABASES['default']['PORT'] = 5000
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -148,5 +152,3 @@ CKEDITOR_CONFIGS = {
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-if 'TRAVIS' in os.environ:
-    DATABASES['default']['PORT'] = 5000
