@@ -123,5 +123,16 @@ class TestViewSetBuilder(unittest.TestCase):
         self.generate_builder(User, build=True)
         self.assertEqual(self.viewset.ordering_fields, '__all__')
 
+    def test_set_fields_check_status_before_build(self):
+        user_filter_fields = ('username', 'email')
+        self.builder.set_fields(user_filter_fields)
+        self.assertEqual(self.builder.fields, user_filter_fields)
+
+    def test_set_fields_check_status_after_build(self):
+        user_filter_fields = ('username', 'email')
+        self.builder.set_fields(user_filter_fields)
+        self.viewset = self.builder.build()
+        self.assertEqual(self.viewset.filter_fields, user_filter_fields)
+
 if __name__ == '__main__':
     unittest.main()
