@@ -1,14 +1,21 @@
+from api.rest import serializers
+from builder import ViewSetBuilder
 from rest_framework import routers
-from viewsets import UserViewSet
-from activity import models as activity_model
 from user import models as user_model
 from event import models as event_model
 from device import models as device_model
-from builder import ViewSetBuilder
+from django.contrib.auth.models import User
+from activity import models as activity_model
+
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+
+# Api Model
+user_view_set_builder = ViewSetBuilder(User, cls_serializer=serializers.UserSerializer)
+user_filter_fields = ('username', 'email', 'is_staff')
+user_view_set_builder.set_fields(user_filter_fields)
+router.register(r'users', user_view_set_builder.build())
 
 # Activity Model
 router.register(r'talktype', ViewSetBuilder(activity_model.TalkType).build())
