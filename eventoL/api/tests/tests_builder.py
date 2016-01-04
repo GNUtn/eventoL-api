@@ -1,3 +1,4 @@
+import mock
 import unittest
 from api.rest.builder import ViewSetBuilder
 from django.contrib.auth.models import User
@@ -20,7 +21,7 @@ class TestViewSetBuilder(unittest.TestCase):
                 model = User
                 fields = ('username', 'email', 'is_staff')
 
-        class UserWithFilter(User):
+        class UserWithFilter():
             @classmethod
             def for_filter(cls):
                 return ('username', 'email', 'is_staff')
@@ -116,6 +117,7 @@ class TestViewSetBuilder(unittest.TestCase):
         self.assertEqual(self.viewset.filter_fields, self.user_fields)
 
     def test_viewset_filter_fields_with_filter(self):
+        self.user_with_filter.objects = mock.Mock()
         self.generate_builder(self.user_with_filter, build=True)
         self.assertEqual(self.viewset.filter_fields, self.user_with_filter.for_filter())
 
