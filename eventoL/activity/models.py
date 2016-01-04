@@ -70,7 +70,7 @@ class Room(models.Model):
                                  help_text=_('The type of talk the room is going to be used for.'))
 
     def __unicode__(self):
-        return u"%s - %s" % (self.sede.name, self.name)
+        return u"%s - %s" % (self.event.name, self.name)
 
     class Meta:
         verbose_name = _('Room')
@@ -85,7 +85,7 @@ class Talk(models.Model):
     end_date = models.DateTimeField(_('End Time'))
 
     def __unicode__(self):
-        return u"%s - %s (%s - %s)" % (self.talk_proposal.sede.name, self.talk_proposal.title,
+        return u"%s - %s (%s - %s)" % (self.talk_proposal.activity.event.name, self.talk_proposal.activity.title,
                                        self.start_date.strftime("%H:%M"), self.end_date.strftime("%H:%M"))
 
     def __cmp__(self, other):
@@ -99,7 +99,7 @@ class Talk(models.Model):
             'room': self.room.name,
             'start_date': self.start_date.strftime('%m/%d/%Y %H:%M'),
             'end_date': self.end_date.strftime('%m/%d/%Y %H:%M'),
-            'title': self.talk_proposal.title,
+            'title': self.talk_proposal.activity.title,
             'speakers': self.talk_proposal.speakers_names,
             'type': self.talk_proposal.type.name
         }
@@ -111,13 +111,13 @@ class Talk(models.Model):
 
 
 class Comment(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField()
     body = models.TextField()
     activity = models.ForeignKey(Activity, verbose_name=_noop('Activity'))
     user = models.ForeignKey(User, verbose_name=_('User'))
 
     def __unicode__(self):
-        return u"%s: %s" % (self.user, self.proposal)
+        return u"%s: %s" % (self.user, self.activity)
 
     def save(self, *args, **kwargs):
         """Email when a comment is added."""
