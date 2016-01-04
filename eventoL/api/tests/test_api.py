@@ -126,10 +126,7 @@ class ApiTestBuilder():
         def test(self):
             url = self.get_url(filter_field)
             response = self.client.get(url)
-            try:
-                self.assertTrue(len(json.loads(response.content)) > 0)
-            except:
-                    import pdb; pdb.set_trace()
+            self.assertTrue(len(json.loads(response.content)) > 0)
         return "test_filter_field_" + filter_field + '_object_in_this', test
 
     def generate_filter_field_get_object(self, filter_field):
@@ -141,10 +138,7 @@ class ApiTestBuilder():
             models = json.loads(response.content)
             model = self.get_model(models)
             for field in filter_fields:
-                try:
-                    self.assertEqual(getattr(self.example_generate, field), model[field])
-                except:
-                    import pdb; pdb.set_trace()
+                self.assertEqual(getattr(self.example_generate, field), model[field])
         return "test_filter_field_" + filter_field, test
 
     def generate_filter_field_check_filter(self, filter_field):
@@ -154,10 +148,7 @@ class ApiTestBuilder():
             models = json.loads(response.content)
             for model in models:
                 self.verify_to_datetime(model, filter_field)
-                try:
-                    self.assertEqual(model[filter_field], self.example[filter_field])
-                except:
-                    import pdb; pdb.set_trace()
+                self.assertEqual(model[filter_field], self.example[filter_field])
         return "test_filter_field_by_" + filter_field, test
 
     def suite_filter_fields_tests(self):
