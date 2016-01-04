@@ -19,7 +19,7 @@ class Adress(models.Model):
     longitude = models.FloatField(_('Longitude'), validators=[MinValueValidator(-180), MaxValueValidator(180)])
 
     def __unicode__(self):
-        return u"%s (%s-%s)" % (self.adress.name, self.latitude, self.longitude)
+        return u"%s (%s-%s)" % (self.name, self.latitude, self.longitude)
 
     class Meta:
         ordering = ['name']
