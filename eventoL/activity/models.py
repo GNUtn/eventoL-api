@@ -5,7 +5,6 @@ from device.models import Hardware, Software
 from user.models import InstalationAttendee, Installer
 from django.utils.translation import ugettext_lazy as _, ugettext_noop as _noop
 
-
 class Activity(models.Model):
     event = models.ForeignKey(Event, verbose_name=_noop('Event'))
     title = models.CharField(_('Title'), max_length=50, blank=True, null=True)
@@ -35,13 +34,20 @@ class TalkType(models.Model):
         verbose_name = _('Talk Type')
         verbose_name_plural = _('Talk Types')
 
+class TalkLevel(models.Model):
+    """
+    Level of the talk. For example: Begginer, Expert
+    """
+    description = models.CharField(_('Description'), max_length=50, help_text=_('Talk level i.e. Begginer, Expert'))
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        verbose_name = _('Talk Level')
+        verbose_name_plural = _('Talk Levels')
 
 class TalkProposal(models.Model):
-    level_choices = (
-        ('1', _('Beginner')),
-        ('2', _('Medium')),
-        ('3', _('Advanced')),
-    )
     activity = models.ForeignKey(Activity, verbose_name=_noop('Activity'))
     type = models.ForeignKey(TalkType, verbose_name=_('Type'))
     speakers_names = models.CharField(_('Speakers Names'), max_length=600,
@@ -52,8 +58,7 @@ class TalkProposal(models.Model):
                               help_text=_('Comma separated tags. i.e. Linux, Free Software, Debian'))
     presentation = models.FileField(_('Presentation'), upload_to='talks', blank=True, null=True, help_text=_(
         'Any material you are going to use for the talk (optional, but recommended)'))
-    level = models.CharField(_('Level'), choices=level_choices, max_length=100,
-                             help_text=_("The talk's Technical level"), default='Beginner')
+    level = models.ForeignKey(TalkLevel, verbose_name=_('Level'), help_text=_("The talk's Technical level"))
 
     def __unicode__(self):
         return u"%s: %s" % (self.activity.event, self.activity.title)

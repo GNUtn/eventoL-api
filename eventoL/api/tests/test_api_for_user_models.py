@@ -67,8 +67,9 @@ class TestApiInstaller():
     str_model = 'user.Installer'
     model = Installer
     url_base = '/api/installer/'
-    example = {}
-    # TODO check level: Beginner
+    example = {
+        'level':'1'
+    }
 
 if __name__ == '__main__':
     unittest.main()

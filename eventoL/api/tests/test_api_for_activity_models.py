@@ -1,6 +1,6 @@
 import datetime
 import unittest
-from activity.models import Activity, Comment, TalkProposal, Talk, TalkType, Room, Installation
+from activity.models import Activity, Comment, TalkProposal, Talk, TalkType, Room, Installation, TalkLevel
 from api.tests.test_api import api_test
 
 
@@ -20,7 +20,8 @@ class TestApiActivity():
 
 @api_test()
 class TestApiComment():
-    fk_models = ['auth.User', 'event.Adress', 'event.Event', 'activity.Activity']
+    fk_models = ['auth.User', 'event.Adress',
+                 'event.Event', 'activity.Activity']
     str_model = 'activity.Comment'
     model = Comment
     url_base = '/api/comment/'
@@ -32,7 +33,8 @@ class TestApiComment():
 
 @api_test()
 class TestApiTalkProposal():
-    fk_models = ['event.Adress', 'event.Event', 'activity.Activity', 'activity.TalkType']
+    fk_models = ['event.Adress', 'event.Event', 'activity.Activity',
+                 'activity.TalkType', 'activity.TalkLevel']
     str_model = 'activity.TalkProposal'
     model = TalkProposal
     url_base = '/api/talkproposal/'
@@ -41,12 +43,12 @@ class TestApiTalkProposal():
         'speakers_email': 'pepe@pepemail.com',
         'labels': 'python,django'
     }
-    # TODO check level: Beginner
 
 
 @api_test()
 class TestApiTalk():
-    fk_models = ['event.Adress', 'event.Event', 'activity.Activity', 'activity.TalkType', 'activity.TalkProposal', 'activity.Room']
+    fk_models = ['event.Adress', 'event.Event', 'activity.Activity', 'activity.TalkType',
+                 'activity.TalkLevel', 'activity.TalkProposal', 'activity.Room']
     str_model = 'activity.Talk'
     model = Talk
     url_base = '/api/talk/'
@@ -67,6 +69,16 @@ class TestApiTalkType():
 
 
 @api_test()
+class TestApiTalkLevel():
+    str_model = 'activity.TalkLevel'
+    model = TalkLevel
+    url_base = '/api/talklevel/'
+    example = {
+        'description': 'Begginer'
+    }
+
+
+@api_test()
 class TestApiRoom():
     fk_models = ['event.Adress', 'event.Event', 'activity.TalkType']
     str_model = 'activity.Room'
@@ -79,7 +91,8 @@ class TestApiRoom():
 
 @api_test()
 class TestApiInstallation():
-    fk_models = ['device.HardwareManufacturer', 'device.Hardware', 'device.Software', 'auth.User', 'event.Adress', 'event.Event', 'user.EventoLUser', 'user.InstalationAttendee','user.Installer']
+    fk_models = ['device.HardwareManufacturer', 'device.HardwareChoices', 'device.SoftwareChoices', 'device.Hardware', 'device.Software', 'auth.User',
+                 'event.Adress', 'event.Event', 'user.EventoLUser', 'user.InstalationAttendee', 'user.Installer']
     str_model = 'activity.Installation'
     model = Installation
     url_base = '/api/installation/'

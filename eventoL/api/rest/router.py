@@ -19,6 +19,7 @@ router.register(r'users', user_view_set_builder.build())
 
 # Activity Model
 router.register(r'talktype', ViewSetBuilder(activity_model.TalkType).build())
+router.register(r'talklevel', ViewSetBuilder(activity_model.TalkLevel).build())
 router.register(r'talkproposal', ViewSetBuilder(activity_model.TalkProposal).build())
 router.register(r'room', ViewSetBuilder(activity_model.Room).build())
 router.register(r'activity', ViewSetBuilder(activity_model.Activity).build())
@@ -45,4 +46,6 @@ router.register(r'image', ViewSetBuilder(event_model.Image).build())
 # Device Model
 router.register(r'hardware', ViewSetBuilder(device_model.Hardware).build())
 router.register(r'hardwaremanufacturer', ViewSetBuilder(device_model.HardwareManufacturer).build())
+router.register(r'softwarechoices', ViewSetBuilder(device_model.SoftwareChoices).build())
+router.register(r'hardwarechoices', ViewSetBuilder(device_model.HardwareChoices).build())
 router.register(r'software', ViewSetBuilder(device_model.Software).build())
